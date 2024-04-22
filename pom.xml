@@ -18,6 +18,7 @@
 		<anypoint.username>Anirudh4142</anypoint.username>
         <anypoint.password>Anirudh@123</anypoint.password>
         <anypoint.env>SANDBOX</anypoint.env>
+	<anypoint.target.server>https://anypoint.mulesoft.com</anypoint.target.server>
 	</properties>
  
 	<build>
