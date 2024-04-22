@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:chatgpt="http://www.mulesoft.org/schema/mule/chatgpt"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/chatgpt http://www.mulesoft.org/schema/mule/chatgpt/current/mule-chatgpt.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="40a3ec07-f0da-4531-8273-d8de79f3c86c" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="doubts-pocFlow" doc:id="97934fe6-f0ce-4a4d-ab29-a9679c7333db" >
+		<http:listener doc:name="Listener" doc:id="252892ec-bf29-4c1e-8d31-e8a83e22ef67" config-ref="HTTP_Listener_config" path="/chatgpt"/>
+		<ee:transform doc:name="Transform Message" doc:id="c93164ae-55fb-4259-8451-4af196c457c0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[output application/json
+---
+{"messages": [
+    {
+     "role": "user",
+     "content": payload.prompt as String
+    }
+  ]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="261c4349-85fd-46af-bab7-8142ab3ca128" />
+	</flow>
+</mule>
