@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
- 
-	<groupId>com.mycompany</groupId>
+
+	<groupId>828a6890-b5b8-4335-a21c-321fbd5e3848</groupId>
 	<artifactId>doubts-poc</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
- 
+
 	<name>doubts-poc</name>
- 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
- 
-		<app.runtime>4.6.1</app.runtime>
+
+		<app.runtime>4.5.3</app.runtime>
 		<mule.maven.plugin.version>4.1.0</mule.maven.plugin.version>
-		<anypoint.username>Anirudh4142</anypoint.username>
-        <anypoint.password>Anirudh@123</anypoint.password>
-        <anypoint.env>SANDBOX</anypoint.env>
-	<anypoint.target.server>https://anypoint.mulesoft.com</anypoint.target.server>
 	</properties>
- 
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.2.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
+			
 				<extensions>true</extensions>
-				<configuration>
-				   <anypointPlatform>
-                        <username>${anypoint.username}</username>
-                        <password>${anypoint.password}</password>
-                        <environment>${anypoint.env}</environment>
-                        <targetServer>${anypoint.target.server}</targetServer>
-                    </anypointPlatform>
-					<classifier>mule-application</classifier>
-				</configuration>
-			</plugin>
+				
+     <configuration>
+     <classifier>mule-app</classifier>
+    <cloudHubDeployment>
+      <uri>https://anypoint.mulesoft.com</uri>
+      <muleVersion>4.5.3</muleVersion>
+      
+      <connectedAppClientId>5aaf3c735c594605b7799c947b4ffc3c</connectedAppClientId>
+      <connectedAppClientSecret>2B3013C94A7F411e95E65bAc0343b12e</connectedAppClientSecret>
+      <connectedAppGrantType>client_credentials</connectedAppGrantType>
+      <server>ci-cd-credentials</server>
+      <applicationName>doubts-poc</applicationName>
+      <environment>Sandbox</environment>
+      <region>us-west-2</region>
+      <workers>1</workers>
+      <workerType>MICRO</workerType>
+      <objectStoreV2>true</objectStoreV2>
+    </cloudHubDeployment>
+  </configuration>
+		</plugin>	
 		</plugins>
 	</build>
- 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-http-connector</artifactId>
-			<version>1.9.1</version>
+			<version>1.9.0</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
@@ -59,8 +61,14 @@
 			<version>1.2.4</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.connectors</groupId>
+			<artifactId>mule4-chatgpt-connector</artifactId>
+			<version>1.0.0</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
 	</dependencies>
- 
+
 	<repositories>
 		<repository>
 			<id>anypoint-exchange-v3</id>
@@ -75,8 +83,32 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
- 
+
 	<pluginRepositories>
+	<pluginRepository>
+			<id>mulesoft-enterprise</id>
+			<name>MuleSoft Enterprise Repository</name>
+			<layout>default</layout>
+			<url>https://repository.mulesoft.org/nexus-ee/content/repositories/release-ee/</url>
+			<releases>
+				<enabled>true</enabled>
+				</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+		<id>mule-public</id>
+			<name>MuleSoft Public Repository</name>
+			<layout>default</layout>
+			<url>https://repository.mulesoft.org/nexus-ee/content/repositories/public/</url>
+			<releases>
+				<enabled>true</enabled>
+				</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
 		<pluginRepository>
 			<id>mulesoft-releases</id>
 			<name>MuleSoft Releases Repository</name>
@@ -87,5 +119,6 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
- 
+
+
 </project>
